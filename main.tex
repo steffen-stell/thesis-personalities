@@ -1,0 +1,141 @@
+%Definition der wichtigsten Grundlagen (Schriftgröße, ein- oder zweiseitig, Papiergröße), kann man im Normalfall so lassen
+\documentclass[12pt,oneside,a4paper]{article}
+
+%Laden von "Paketen", wichtig für deutsche Sprache (Umlaute, Trennung usw) und das Einbinden von Grafiken
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[dvips]{graphicx}
+\usepackage{array}
+\usepackage{ntheorem}
+\usepackage{tikz}
+\theoremseparator{:}
+\newtheorem{hyp}{Hypothesis}
+\usepackage{pdfpages}
+\usepackage[toc, page]{appendix}
+\usepackage{dcolumn}
+\usepackage{changepage}
+\usepackage{url}
+\usepackage[labelfont={bf,sf},font={small},%
+  labelsep=period]{caption}
+\usepackage{setspace}
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{personalities.bib} %Import the bibliography file
+
+\onehalfspacing
+%Definition der Seite (schon etwas angepasst an die Anforderungen einer Uni-Arbeit)
+%Ränder
+\setlength {\oddsidemargin}{1,5 cm}
+\setlength {\topmargin}{0 cm}
+\setlength {\headsep}{0 cm}
+\setlength {\headheight}{0 cm}
+%Breite (nach rechts) und Länge (nach unten) des Texts auf der Seite
+\setlength {\textwidth}{13 cm}
+\setlength {\textheight}{25,0 cm}
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage{adjustbox}
+\widowpenalty10000
+\clubpenalty10000
+
+\begin{document}
+
+\title{\textbf{Master Thesis \\
+\bigskip
+\bigskip
+Title of Thesis}}
+\author{\\
+		%\textbf{Steffen Stell} \\
+		%01/954909 \\
+        \includegraphics[scale=0.3]{fig/00_logo_kn.pdf}
+		\\
+    	Faculty of Politics, Law and Economics \\
+		Department of Politics and Public Administration \\
+		\\
+		%1$^{st}$ Supervisor: Prof. Dr. Susumu Shikano \\
+		%2$^{nd}$ Supervisor: PD Dr. Michael Herrmann
+		}
+\date{Konstanz, \the\year}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+% Bei doppelseitigem Druck leere Seiten einfügen
+%
+%\thispagestyle{empty}
+%\mbox{}
+%\newpage
+
+\thispagestyle{empty}
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+
+%\thispagestyle{empty}
+%\mbox{}
+%\newpage
+
+\setcounter{page}{1}
+%\input{001_abstract.tex}
+\addcontentsline{toc}{section}{Abstract}
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+%\thispagestyle{empty}
+%\mbox{}
+%\newpage
+
+\pagenumbering{arabic}
+\section{Introduction}
+\setcounter{page}{1}
+%\input{01_introduction.tex}
+
+\section{Literature}
+%\input{02_literature.tex}
+
+\section{Theory}
+%\input{03_theory.tex}
+
+\section{Data}
+%\input{04_research_design.tex}
+\subsection{Newspapers}
+\subsubsection{Selection}
+"Although local newspapers play an im-
+portant role in the German media landscape, they often discuss the content that is
+relevant to a locally restricted group of people only. Moreover, local newspapers tend to duplicate content that is relevant to a wider audience from a sister news-
+paper within the same publisher, such as on topics regarding foreign affairs or
+economic issues (Butenschön et al., 2017; Maute, 2011). " \parencite{Falck2019}
+
+Text data collected from Lexis Nexis Uni. Selection of publication limited by licensed papers; FAZ, SZ and Handelsblatt cannot be accessed via Lexis Nexis Uni \parencite{LexisNexis2023}.
+
+Ideologische Einordnung überregionaler Medien: Welt konservativ, FAZ mitte-rechts, SZ mitte-links, FR links, taz links-außen. Redaktionelle Linien sind in der Regionalpresse tendenziell weniger ausgeprägt, dies ist allerdings von der Wettbewerbssituation vor Ort abhängig. Mehr Wettbewerb = stärkere ideologische Prägung \parencite[pp. 129-130]{Maurer2006}. Despite changes in the newspaper market, the this spectrum remains accepted in the literature today \parencite[pp. 59-60]{Merkle2019}.
+
+\section{Method}
+
+\section{Results}
+%\input{05_results.tex}
+
+\section{Discussion}
+%\input{06_discussion.tex}
+
+\section{Conclusion}
+%\input{07_conclusion.tex}
+
+\newpage
+\printbibliography
+
+\newpage
+
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+%\input{09_appendix.tex}
+
+\end{document}
