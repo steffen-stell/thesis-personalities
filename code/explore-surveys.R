@@ -2,7 +2,6 @@ library(tidyverse)
 library(haven)
 library(lubridate)
 
-list.files("data/", full.names = T) 
 # politbarometer
 pb <- read_dta("data/politbarometer/ZA7856_v1-0-0.dta")
 
@@ -39,11 +38,10 @@ gp2 <- gp |>
   reduce(full_join)
 
 
-
 ## Repair Wave 17 ----------------------------------------------------------
 
 # Variables with conflicting types across waves. Type conflict vars have no labels at all
-gp_type_conflict <- map_chr(gp2[-1], class) |> 
+gp_type_conflict <- map(gp2[-1], class) |> 
   enframe() |> 
   separate(name, c("wave", "var"), extra = "merge", sep = "_") |>
   group_by(var) |> 
@@ -59,7 +57,7 @@ gp[-2] |>
   map(attr, "labels") |>
   unique()
 
-# Use wave 16 labels for repair
+# Use wave 16 labels for repair of unlabelled vars
 gp3 <- gp2 |> 
   mutate(
     across(contains("kp17_4045"),
@@ -92,12 +90,12 @@ gp3 <- gp3 |>
 
 # Reshape GLES ------------------------------------------------------------
 
+# Warnings in reshape indicate differing attr("labels") across waves for the same variable code
 gp_rs_warn <- gp3 |> 
-  #mutate(across(contains(gp_type_conflict), as.character)) |> 
   quietly(pivot_longer)(
     col = starts_with("kp"),
-    names_pattern = "kp(\\d+)_(.*)",
-    names_to = c("wave", ".value"),
+    names_pattern = "kp(\\d+)_(.*)", # Pattern: wave_var
+    names_to = c("wave", ".value"), # Only pivot wave, not var element of names
     names_repair = \(nm) str_c("v", nm)
     )
 
@@ -127,8 +125,8 @@ gp_rs_warn2 |>
     ) |> 
   mutate(x = map2(v1,v2, 
                   \(e1,e2) full_join(e1, e2, by = "val") |>
-                    filter(val >= 0)
-                    #filter(nm.x != nm.y | is.na(nm.x) | is.na(nm.y))
+                    filter(val >= 0) %>%
+                    {.[.[1] != .[3], ]}
                   )
          ) |> 
   pull(x)
